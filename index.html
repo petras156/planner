@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-  <meta charset="UTF-8">
-  <title>My Planner</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>Planner</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
@@ -12,12 +17,29 @@
 
   <input type="date" id="date">
 
-  <textarea id="tasks" placeholder="Úlohy..."></textarea>
-  <textarea id="food" placeholder="Jedlo..."></textarea>
-  <textarea id="water" placeholder="Voda..."></textarea>
-  <textarea id="notes" placeholder="Poznámky..."></textarea>
+  <div class="card">
+    <h3>Úlohy</h3>
+    <input id="taskInput" placeholder="Pridať úlohu...">
+    <button onclick="addTask()">+ Pridať</button>
+    <div id="tasks"></div>
+  </div>
 
-  <button onclick="save()">Uložiť deň</button>
+  <div class="card">
+    <h3>Jedlo</h3>
+    <textarea id="food" placeholder="Čo si jedla..."></textarea>
+  </div>
+
+  <div class="card">
+    <h3>Voda 💧</h3>
+    <div id="water"></div>
+  </div>
+
+  <div class="card">
+    <h3>Poznámky</h3>
+    <textarea id="notes"></textarea>
+  </div>
+
+  <button class="save" onclick="save()">Uložiť deň</button>
 
   <h2>História</h2>
   <div id="history"></div>
