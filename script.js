@@ -1,35 +1,77 @@
-function save() {
-  const date = document.getElementById("date").value;
-  const tasks = document.getElementById("tasks").value;
-  const food = document.getElementById("food").value;
-  const water = document.getElementById("water").value;
-  const notes = document.getElementById("notes").value;
-
-  const data = { tasks, food, water, notes };
-
-  localStorage.setItem(date, JSON.stringify(data));
-  loadHistory();
+body {
+  margin: 0;
+  font-family: -apple-system, sans-serif;
+  background: linear-gradient(180deg, #1e1e2f, #2b2b45);
+  color: white;
 }
 
-function loadHistory() {
-  const history = document.getElementById("history");
-  history.innerHTML = "";
-
-  for (let i = 0; i < localStorage.length; i++) {
-    const date = localStorage.key(i);
-    const data = JSON.parse(localStorage.getItem(date));
-
-    const div = document.createElement("div");
-    div.className = "day";
-    div.innerHTML = `
-      <strong>${date}</strong><br>
-      📝 ${data.tasks}<br>
-      🍽 ${data.food}<br>
-      💧 ${data.water}<br>
-      📌 ${data.notes}
-    `;
-    history.appendChild(div);
-  }
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
 }
 
-loadHistory();
+h1 {
+  font-weight: 600;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 16px;
+  margin-top: 15px;
+  backdrop-filter: blur(10px);
+}
+
+input, textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #7b6cff, #5f9cff);
+  color: white;
+}
+
+.save {
+  margin-top: 20px;
+  padding: 14px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.task input {
+  margin-right: 10px;
+}
+
+.water-btn {
+  font-size: 22px;
+  margin: 5px;
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.water-btn.active {
+  opacity: 1;
+}
+
+.day {
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
