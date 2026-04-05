@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>My Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🌙 Môj deň</h1>
+
+  <input type="date" id="date">
+
+  <textarea id="tasks" placeholder="Úlohy..."></textarea>
+  <textarea id="food" placeholder="Jedlo..."></textarea>
+  <textarea id="water" placeholder="Voda..."></textarea>
+  <textarea id="notes" placeholder="Poznámky..."></textarea>
+
+  <button onclick="save()">Uložiť deň</button>
+
+  <h2>História</h2>
+  <div id="history"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
