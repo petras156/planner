@@ -1,38 +1,93 @@
-body {
-  background: #1e1e2f;
-  color: #fff;
-  font-family: Arial;
-  padding: 20px;
+let tasks = [];
+let waterCount = 0;
+
+document.getElementById("date").valueAsDate = new Date();
+
+function addTask() {
+  const input = document.getElementById("taskInput");
+  if (!input.value) return;
+
+  tasks.push({ text: input.value, done: false });
+  input.value = "";
+  renderTasks();
 }
 
-.container {
-  max-width: 400px;
-  margin: auto;
+function renderTasks() {
+  const container = document.getElementById("tasks");
+  container.innerHTML = "";
+
+  tasks.forEach((task, index) => {
+    const div = document.createElement("div");
+    div.className = "task";
+
+    div.innerHTML = `
+      <input type="checkbox" ${task.done ? "checked" : ""} 
+      onchange="toggleTask(${index})">
+      ${task.text}
+    `;
+
+    container.appendChild(div);
+  });
 }
 
-textarea, input {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #2e2e40;
-  color: white;
+function toggleTask(index) {
+  tasks[index].done = !tasks[index].done;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background: #6c5ce7;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  margin-top: 10px;
+function renderWater() {
+  const container = document.getElementById("water");
+  container.innerHTML = "";
+
+  for (let i = 1; i <= 8; i++) {
+    const span = document.createElement("span");
+    span.innerHTML = "💧";
+    span.className = "water-btn " + (i <= waterCount ? "active" : "");
+    span.onclick = () => {
+      waterCount = i;
+      renderWater();
+    };
+    container.appendChild(span);
+  }
 }
 
-.day {
-  background: #2e2e40;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
+function save() {
+  const date = document.getElementById("date").value;
+  const food = document.getElementById("food").value;
+  const notes = document.getElementById("notes").value;
+
+  const data = { tasks, waterCount, food, notes };
+
+  localStorage.setItem(date, JSON.stringify(data));
+  loadHistory();
 }
+
+function loadHistory() {
+  const history = document.getElementById("history");
+  history.innerHTML = "";
+
+  Object.keys(localStorage).forEach(date => {
+    const data = JSON.parse(localStorage.getItem(date));
+
+    const div = document.createElement("div");
+    div.className = "day";
+
+    div.innerHTML = `
+      <strong>${date}</strong><br>
+      ✔️ ${data.tasks.length} úloh<br>
+      💧 ${data.waterCount}/8<br>
+      🍽 ${data.food}<br>
+      📌 ${data.notes}
+      <br><button onclick="deleteDay('${date}')">Zmazať</button>
+    `;
+
+    history.appendChild(div);
+  });
+}
+
+function deleteDay(date) {
+  localStorage.removeItem(date);
+  loadHistory();
+}
+
+renderWater();
+loadHistory();
